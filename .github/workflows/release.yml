@@ -64,7 +64,7 @@ jobs:
           cd ..
           git clone https://github.com/glencoesoftware/core.git
           cd core
-          git checkout compat-4-0
+          git checkout compat-4-2
           pip install --editable . --upgrade
           cd ..
           pip install --editable .

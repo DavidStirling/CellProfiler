@@ -38,6 +38,7 @@ jobs:
         if: ${{ matrix.os == 'macos-10.15' }}
         name: MacOS build
         run: |
+          pip install https://github.com/emilroz/CellProfiler/releases/download/v4.0.7-omero-3d/zeroc_ice-3.6.5-cp38-cp38-macosx_10_14_x86_64.whl
           ls -la
           sed -i '' 's/4.0.0/4.2.1/' Info.plist
           brew install mysql
@@ -51,6 +52,16 @@ jobs:
         run: |
           pip install cython
           pip install mysqlclient==1.4.6
+          git clone https://github.com/glencoesoftware/omero-reader.git
+          cd omero-reader
+          git checkout master
+          pip install --editable . --upgrade
+          cd ..
+          git clone https://github.com/emilroz/python-bioformats.git
+          cd python-bioformats
+          git checkout compat-4-0
+          pip install --editable . --upgrade
+          cd ..
           git clone https://github.com/glencoesoftware/core.git
           cd core
           git checkout compat-4-0
@@ -120,5 +131,7 @@ jobs:
 name: create-release
 on:
   push:
+    branches:
+      - compat-4-2-omeropy
     tags:
       - "v*"

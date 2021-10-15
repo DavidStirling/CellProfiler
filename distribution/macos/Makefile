@@ -11,14 +11,23 @@ SHELL := bash
 .SUFFIXES:
 
 CellProfiler:
-	git clone https://github.com/glencoesoftware/CellProfiler
+	git clone https://github.com/emilroz/CellProfiler
 
 	cd $@ && git checkout compat-4-0
 
 .PHONY: dependencies
 dependencies: CellProfiler
 
-	git clone https://github.com/glencoesoftware/core.git
+	pip install https://github.com/emilroz/CellProfiler/releases/download/v4.0.7-omero-3d/zeroc_ice-3.6.5-cp38-cp38-macosx_10_14_x86_64.whl
+
+	git clone https://github.com/glencoesoftware/omero-reader.git
+	cd omero-reader && git checkout master && pip install --editable . --upgrade
+
+	git clone https://github.com/emilroz/python-bioformats.git
+	cd python-bioformats && git checkout compat-4-0 && pip install --editable . --upgrade
+
+	git clone https://github.com/emilroz/core.git
+
 	cd core && git checkout compat-4-0
 	pip3 install --editable "core[test]" --upgrade
 

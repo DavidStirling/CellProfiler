@@ -6,6 +6,7 @@ import sys
 import sentry_sdk
 import wx
 import wx.lib.inspection
+import bioformats.formatreader
 from cellprofiler_core.preferences import get_telemetry_prompt
 from cellprofiler_core.preferences import get_telemetry
 from cellprofiler_core.preferences import set_telemetry
@@ -112,6 +113,7 @@ class App(wx.App):
         return True
 
     def OnExit(self):
+        bioformats.formatreader.omero_logout()
         stop_java()
 
         return 0

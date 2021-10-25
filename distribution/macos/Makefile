@@ -11,9 +11,9 @@ SHELL := bash
 .SUFFIXES:
 
 CellProfiler:
-	git clone https://github.com/emilroz/CellProfiler
+	git clone https://github.com/DavidStirling/CellProfiler
 
-	cd $@ && git checkout compat-4-0
+	cd $@ && git checkout compat-4-2-omeropy
 
 .PHONY: dependencies
 dependencies: CellProfiler
@@ -26,9 +26,9 @@ dependencies: CellProfiler
 	git clone https://github.com/emilroz/python-bioformats.git
 	cd python-bioformats && git checkout compat-4-0 && pip install --editable . --upgrade
 
-	git clone https://github.com/emilroz/core.git
+	git clone https://github.com/glencoesoftware/core.git
 
-	cd core && git checkout compat-4-0
+	cd core && git checkout compat-4-2
 	pip3 install --editable "core[test]" --upgrade
 
 	pip3 install --editable "CellProfiler[build, test]" --upgrade

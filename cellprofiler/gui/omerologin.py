@@ -77,7 +77,8 @@ class OmeroLoginDlg(wx.Dialog):
         sub_sizer.Add(
             wx.StaticText(self, label="Password:", size=lsize),
             0, wx.ALIGN_CENTER_VERTICAL)
-        self.omero_password_ctrl = wx.TextCtrl(self, value="", style=wx.TE_PASSWORD)
+        self.omero_password_ctrl = wx.TextCtrl(self, value="", style=wx.TE_PASSWORD | wx.TE_PROCESS_ENTER)
+        self.omero_password_ctrl.Bind(wx.EVT_TEXT_ENTER, self.on_passwd_enter)
         sub_sizer.Add(self.omero_password_ctrl, 1, wx.EXPAND)
 
         sizer.AddSpacer(5)
@@ -119,6 +120,12 @@ class OmeroLoginDlg(wx.Dialog):
     def on_connect_pressed(self, event):
         self.connect()
 
+    def on_passwd_enter(self, event):
+        if self.ok_button.IsEnabled():
+            self.on_ok(event)
+        else:
+            self.connect()
+
     def connect(self):
         try:
             server = self.omero_server_ctrl.GetValue()
@@ -136,7 +143,7 @@ class OmeroLoginDlg(wx.Dialog):
                 server, port, user, self.omero_password_ctrl.GetValue()
             )
             self.message_ctrl.Label = "Connected"
-            self.message_ctrl.ForegroundColour = "green"
+            self.message_ctrl.ForegroundColour = "forest green"
             self.message_ctrl.Refresh()
             self.server = server
             self.port = port

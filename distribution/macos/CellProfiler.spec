@@ -144,6 +144,7 @@ exe = EXE(
     disable_windowed_traceback=False,
     target_arch=None,
     codesign_identity=None,
+    argv_emulation=True,
     entitlements_file=os.path.join(os.getcwd(),
                                    'distribution/macos/entitlements.plist')
 )

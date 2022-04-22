@@ -19,7 +19,11 @@ def get_builtin_image(name):
     # So here we generate a "fake" app that the build scripts can use.
     global app
     if not wx.App.Get() and app is None:
-        app = wx.App()
+        try:
+            app = wx.App()
+        except SystemExit:
+            print("WX GUI is not available, may be building on GitHub.")
+            return b''
 
     try:
         return image_cache[name]
